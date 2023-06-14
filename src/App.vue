@@ -24,7 +24,7 @@ export default {
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -50,7 +50,7 @@ ul {
 }
 
 body {
-  font-family: 'Teko', sans-serif, monospace, Helvetica, Arial;
+  font-family: 'Rajdhani', sans-serif, monospace, Helvetica, Arial;
   color: #345;
   background: url('./assets/pattern.svg') repeat top;
 }
@@ -77,7 +77,7 @@ img {
   box-shadow: 0 4px 8px rgba(30, 60, 90, 0.2);
   transition: all 0.3s;
   border: none;
-  font-family: 'Teko', sans-serif, monospace, Helvetica, Arial;
+  font-family: 'Rajdhani', sans-serif, monospace, Helvetica, Arial;
   cursor: pointer;
 }
 

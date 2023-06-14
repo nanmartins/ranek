@@ -1,10 +1,10 @@
 <template>
-  <sectin>
-    <h1>Compre ou Venda</h1>
+  <section>
+    <h1>👍 Compre ou Venda 👎</h1>
     <ProdutosBuscar />
     <ProdutosLista />
 
-  </sectin>
+  </section>
 </template>
 
 <script>
