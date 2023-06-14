@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <TheHeader />
-    <router-view/>
+    <main id="main">
+      <router-view/>
+    </main>
     <TheFooter />
   </div>
 </template>
@@ -31,6 +33,16 @@ export default {
 body, ul, li, h1, h2, p {
   margin: 0;
   padding: 0;
+}
+
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+#main {
+  flex: 1;
 }
 
 ul {
