@@ -39,7 +39,7 @@ ESLint - ^7.32.0
   "rules": {
     "vue/multi-word-component-names": "off"
   }
-  ** to allow single name views/components
+  **single name views/components
 
 ----------------------------------------------------
 
