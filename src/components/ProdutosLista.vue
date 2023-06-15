@@ -1,33 +1,34 @@
 <template>
   <section class="produtos-container">
 
-    <div v-if="produtos && produtos.length" class="produtos">
+    <transition mode="out-in">
 
-      <div v-for="(produto) in produtos" :key="produto.id" class="produto">
-        <router-link to="/">
-          <p class="preco">{{ produto.preco }}</p>
-          <img v-if="produto.fotos" :src="produto.fotos[0].src" :alt="produto.fotos[0].titulo">
-          <h2 class="titulo">{{ produto.nome}}</h2>
-          <p class="descricao">{{ produto.descricao }}</p>
-        </router-link>
+      <div v-if="produtos && produtos.length" class="produtos" key="produtos">
+
+        <div v-for="(produto) in produtos" :key="produto.id" class="produto">
+          <router-link to="/">
+            <p class="preco">{{ produto.preco }}</p>
+            <img v-if="produto.fotos" :src="produto.fotos[0].src" :alt="produto.fotos[0].titulo">
+            <h2 class="titulo">{{ produto.nome}}</h2>
+            <p class="descricao">{{ produto.descricao }}</p>
+          </router-link>
+        </div>
+
+      <!-- <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina" /> -->
+
       </div>
 
-    <!-- <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina" /> -->
 
-    </div>
+      <div v-else-if="produtos && produtos.length === 0" key="sem-resultado">
+        <p class="sem-resultados">Busca sem resultados.</p>
+      </div>
 
+      <PaginaCarregando v-else key="carregando"/>
 
-    <div v-else-if="produtos && produtos.length === 0">
-      <p class="sem-resultados">Busca sem resultados.</p>
-    </div>
-
-    <div v-else>
-      <p>Carregando...</p>
-    </div>
+    </transition>
 
     <ProdutosPaginar :produtosTotal="produtosTotal" :produtosPorPagina="produtosPorPagina" />
 
-   <!-- {{ url }} -->
   </section>
 </template>
 
@@ -60,12 +61,15 @@ export default {
 
   methods: {
     getProdutos() {
-      api.get(this.url)
-        .then(response => {
-          this.produtosTotal = Number(response.headers['x-total-count'])
-          // console.log(response)
-          this.produtos = response.data
-      })
+      this.produtos = null
+      window.setTimeout(() => {
+        api.get(this.url)
+          .then(response => {
+            this.produtosTotal = Number(response.headers['x-total-count'])
+            // console.log(response)
+            this.produtos = response.data
+        })
+      }, 1000);
     }
   },
 
