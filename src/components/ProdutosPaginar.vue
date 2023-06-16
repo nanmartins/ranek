@@ -59,7 +59,8 @@ export default {
       // console.log(this.paginas)
       const total = this.produtosTotal / this.produtosPorPagina
       return (total !== Infinity) ? Math.ceil(total) : 0
-    }
+    },
+
   }
 }
 </script>

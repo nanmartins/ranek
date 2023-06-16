@@ -55,7 +55,12 @@ export default {
   computed: {
     url() {
       const query = serialize(this.$route.query)
+      // console.log(query)
       return `/produto?_limit=${this.produtosPorPagina}${query}`
+    },
+
+    isHome() {
+      return this.$route.path === '/'
     }
   },
 
