@@ -6,8 +6,8 @@
       <div v-if="produtos && produtos.length" class="produtos" key="produtos">
 
         <div v-for="(produto) in produtos" :key="produto.id" class="produto">
-          <router-link to="/">
-            <p class="preco">{{ produto.preco }}</p>
+          <router-link :to="{ name: 'produto', params: { id: produto.id }}">
+            <p class="preco">{{ produto.preco | numeroPreco }}</p>
             <img v-if="produto.fotos" :src="produto.fotos[0].src" :alt="produto.fotos[0].titulo">
             <h2 class="titulo">{{ produto.nome}}</h2>
             <p class="descricao">{{ produto.descricao }}</p>

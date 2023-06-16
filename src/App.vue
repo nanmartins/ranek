@@ -1,9 +1,14 @@
 <template>
   <div id="app">
+
     <TheHeader />
+
     <main id="main">
-      <router-view/>
+      <transition>
+        <router-view/>
+      </transition>
     </main>
+
     <TheFooter />
   </div>
 </template>
