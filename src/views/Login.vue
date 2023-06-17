@@ -40,7 +40,8 @@ export default {
   },
   methods: {
     logar() {
-      console.log('Logou')
+      this.$store.dispatch('getUsuario', this.login.email)
+      this.$router.push({ name: 'usuario'})
     }
   }
 }
