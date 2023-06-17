@@ -71,7 +71,7 @@ form {
   max-width: 300px;
   /* margin-left: auto;
   margin-right: auto; */
-  margin: 0 auto;
+  margin: 10px auto 0 auto;
 }
 
 .perdeu {
