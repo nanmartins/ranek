@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    strict: true,
     login: false,
     usuario: {
       id: '',
@@ -28,7 +29,9 @@ export default new Vuex.Store({
     },
 
     UPDATE_USUARIO(state, payload) {
-      state.usuario = payload
+      // unindo os valores do objeto state.usuario com os valores recebidos user form
+      // assim mantendo o usuario objeto com os valores nulos ate que receba algum valor do form
+      state.usuario = Object.assign(state.usuario, payload)
     }
   },
   actions: {
