@@ -35,7 +35,6 @@ const routes = [
 
   {
     path: '/usuario',
-
     component: Usuario,
     children: [
       {
