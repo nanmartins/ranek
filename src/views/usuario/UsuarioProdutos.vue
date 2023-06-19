@@ -1,7 +1,8 @@
 <template>
   <section>
     <h2>Adicionar Produto</h2>
-    <ProdutoAdicionar />
+    <ProdutoAdicionar v-if="usuario.id" />
+    <p v-else>Conecte-se para adicionar um produto</p>
 
     <h2>Seus Produtos</h2>
     <transition-group v-if="usuario_produtos" name="list" tag="ul">
@@ -56,6 +57,17 @@ export default {
 
 h2 {
   margin-bottom: 20px;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.3s;
+}
+
+.list-enter,
+.list-leave-to {
+  transform: translate3d(20px, 0, 0);
+  opacity: 1;
 }
 
 </style>

@@ -40,7 +40,7 @@ export default new Vuex.Store({
     },
 
     ADD_USUARIO_PRODUTOS(state, payload) {
-      state.usuario_produtos.push(payload)
+      state.usuario_produtos.unshift(payload)
     }
   },
   actions: {

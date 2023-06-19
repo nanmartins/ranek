@@ -30,7 +30,6 @@ export default {
   gap: 20px;
   margin-bottom: 40px;
   position: relative;
-  border: 1px solid blue;
 }
 
 .info {
