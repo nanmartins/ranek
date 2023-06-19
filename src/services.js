@@ -11,8 +11,11 @@ export const api = {
   post(url, body) {
     return axiosInstance.post(url, body)
   },
-  delete(endpoint) {
-    return axiosInstance.delete(endpoint)
+  put(url, body) {
+    return axiosInstance.put(url, body)
+  },
+  delete(url) {
+    return axiosInstance.delete(url)
   }
 }
 
