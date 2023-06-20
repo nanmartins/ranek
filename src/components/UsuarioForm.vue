@@ -1,14 +1,17 @@
 <template>
   <form>
-    <!-- Nome -->
-    <label for="nome">Nome</label>
-    <input id="nome" name="nome" v-model="nome" type="text">
-    <!-- Email -->
-    <label for="email">Email</label>
-    <input id="email" name="email" v-model="email" type="email">
-    <!-- Senha -->
-    <label for="senha">Senha</label>
-    <input id="senha" name="senha" v-model="senha" type="password">
+    <div v-if="mostrarDadosLogin" class="usuario">
+      <!-- Nome -->
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" v-model="nome" type="text">
+      <!-- Email -->
+      <label for="email">Email</label>
+      <input id="email" name="email" v-model="email" type="email">
+      <!-- Senha -->
+      <label for="senha">Senha</label>
+      <input id="senha" name="senha" v-model="senha" type="password">
+    </div>
+
     <!-- Cep -->
     <label for="cep">Cep</label>
     <input @keyup="preencherCep" id="cep" name="cep" v-model="cep" type="text">
@@ -47,8 +50,11 @@ export default {
       fields: ['nome', 'email', 'senha', 'cep', 'rua', 'numero', 'bairro', 'cidade', 'estado'],
       base: 'usuario',
       mutation: 'UPDATE_USUARIO',
-    })
+    }),
 
+    mostrarDadosLogin() {
+      return (!this.$store.state.login || this.$route.name === 'usuario-editar')
+    }
   },
 
   methods: {
@@ -71,10 +77,15 @@ export default {
 
 <style scoped>
 
-form {
+form,
+.usuario {
   display: grid;
   grid-template-columns: 80px 1fr;
   align-items: center;
+}
+
+.usuario {
+  grid-column: 1 / 3;
 }
 
 .button {
