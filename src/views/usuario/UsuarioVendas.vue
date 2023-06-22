@@ -3,7 +3,11 @@
     <div v-if="vendas">
       <h2>Vendas</h2>
 
-      <div v-for="(venda, index) in vendas" :key="index" class="produtos-wrapper">
+      <div
+        v-for="(venda, index) in vendas"
+        :key="index"
+        class="produtos-wrapper"
+      >
         <ProdutoItem v-if="venda.produto" :produto="venda.produto">
           <p class="vendedor">
             <span>Comprador: </span>
@@ -11,66 +15,62 @@
           </p>
         </ProdutoItem>
 
-      <div class="entrega">
-        <h3>Entrega:</h3>
-        <ul v-if="venda.endereco">
-          <li v-for="(value, key) in venda.endereco" :key="key">
-            {{ key }} : {{ value }}
-          </li>
-        </ul>
-      </div>
-
+        <div class="entrega">
+          <h3>Entrega:</h3>
+          <ul v-if="venda.endereco">
+            <li v-for="(value, key) in venda.endereco" :key="key">
+              {{ key }} : {{ value }}
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-
-import { api } from '@/services.js'
-import { mapState } from 'vuex'
-import ProdutoItem from '@/components/ProdutoItem.vue'
+import { api } from "@/services.js";
+import { mapState } from "vuex";
+import ProdutoItem from "@/components/ProdutoItem.vue";
 
 export default {
-  name: 'UsuarioVendas',
+  name: "UsuarioVendas",
   components: {
-    ProdutoItem
+    ProdutoItem,
   },
   data() {
     return {
-      vendas: null
-    }
+      vendas: null,
+    };
   },
 
   computed: {
-    ...mapState(['usuario', 'login'])
+    ...mapState(["usuario", "login"]),
   },
 
   methods: {
     getVendas() {
-      api.get(`/transacao?vendedor_id=${this.usuario.id}`)
-      .then(response => {
-        this.vendas = response.data
-      })
-    }
+      api.get(`/transacao?tipo=vendedor_id`).then((response) => {
+        this.vendas = response.data;
+      });
+    },
   },
 
   watch: {
     login() {
-      this.getVendas()
-    }
+      this.getVendas();
+    },
   },
 
   created() {
     if (this.login) {
-      this.getVendas()
+      this.getVendas();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 h2 {
   margin-bottom: 20px;
 }
@@ -94,5 +94,4 @@ h3 {
   margin: 0;
   justify-self: end;
 }
-
 </style>

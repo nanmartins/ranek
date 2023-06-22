@@ -7,31 +7,31 @@
 </template>
 
 <script>
+import { api } from "@/services.js";
 
-import { api } from '@/services.js'
-
-import UsuarioForm from '@/components/UsuarioForm.vue'
+import UsuarioForm from "@/components/UsuarioForm.vue";
 
 export default {
-  name: 'UsuarioEditar',
+  name: "UsuarioEditar",
   components: {
-    UsuarioForm
+    UsuarioForm,
   },
 
   methods: {
     async atualizarUsuario() {
-      await api.put(`/usuario/${this.$store.state.usuario.id}`, this.$store.state.usuario)
-      .then(() => {
-        this.$store.dispatch('getUsuario')
-        this.$router.push({ name: 'usuario'})
-      }).catch(error => {
-        console.log(error.response)
-      })
-    }
-  }
-}
+      await api
+        .put(`/usuario`, this.$store.state.usuario)
+        .then(() => {
+          this.$store.dispatch("getUsuario");
+          this.$router.push({ name: "usuario" });
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>

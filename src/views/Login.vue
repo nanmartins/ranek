@@ -4,10 +4,10 @@
 
     <form>
       <label for="email">Email</label>
-      <input v-model="login.email" type="email" name="email" id="email">
+      <input v-model="login.email" type="email" name="email" id="email" />
 
       <label for="senha">Senha</label>
-      <input v-model="login.senha" type="password" name="senha" id="senha">
+      <input v-model="login.senha" type="password" name="senha" id="senha" />
 
       <button @click.prevent="logar" class="btn">Logar</button>
     </form>
@@ -17,38 +17,37 @@
     </p>
 
     <LoginCriar />
-
   </section>
 </template>
 
 <script>
-
-import LoginCriar from '@/components/LoginCriar.vue'
+import LoginCriar from "@/components/LoginCriar.vue";
 
 export default {
-  name: 'Login',
+  name: "Login",
   components: {
-    LoginCriar
+    LoginCriar,
   },
   data() {
     return {
       login: {
-        email: '',
-        senha: ''
-      }
-    }
+        email: "",
+        senha: "",
+      },
+    };
   },
   methods: {
     logar() {
-      this.$store.dispatch('getUsuario', this.login.email)
-      this.$router.push({ name: 'usuario'})
-    }
-  }
-}
+      this.$store.dispatch("logarUsuario", this.login).then(() => {
+        this.$store.dispatch("getUsuario");
+        this.$router.push({ name: "usuario" });
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .login {
   max-width: 500px;
   margin: 0 auto;
@@ -83,5 +82,4 @@ form {
   color: #87f;
   text-decoration: underline;
 }
-
 </style>

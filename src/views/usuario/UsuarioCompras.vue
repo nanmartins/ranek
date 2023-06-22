@@ -2,7 +2,11 @@
   <section>
     <div v-if="compras">
       <h2>Compras</h2>
-      <div v-for="(compra, index) in compras" :key="index" class="produtos-wrapper">
+      <div
+        v-for="(compra, index) in compras"
+        :key="index"
+        class="produtos-wrapper"
+      >
         <ProdutoItem v-if="compra.produto" :produto="compra.produto">
           <p class="vendedor">
             <span>Vendedor: </span>
@@ -15,51 +19,48 @@
 </template>
 
 <script>
-
-import { api } from '@/services.js'
-import { mapState } from 'vuex'
-import ProdutoItem from '@/components/ProdutoItem.vue'
+import { api } from "@/services.js";
+import { mapState } from "vuex";
+import ProdutoItem from "@/components/ProdutoItem.vue";
 
 export default {
-  name: 'UsuarioCompras',
+  name: "UsuarioCompras",
   components: {
-    ProdutoItem
+    ProdutoItem,
   },
   data() {
     return {
-      compras: null
-    }
+      compras: null,
+    };
   },
 
   computed: {
-    ...mapState(['usuario', 'login'])
+    ...mapState(["usuario", "login"]),
   },
 
   methods: {
     getCompras() {
-      api.get(`/transacao?comprador_id=${this.usuario.id}`)
-      .then(response => {
-        this.compras = response.data
-      })
-    }
+      api.get(`/transacao?tipo=comprador_id`).then((response) => {
+        this.compras = response.data;
+      });
+    },
   },
 
   watch: {
     login() {
-      this.getCompras()
-    }
+      this.getCompras();
+    },
   },
 
   created() {
     if (this.login) {
-      this.getCompras()
+      this.getCompras();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 h2 {
   margin-bottom: 20px;
 }
@@ -71,5 +72,4 @@ h2 {
 .vendedor span {
   color: #e80;
 }
-
 </style>
