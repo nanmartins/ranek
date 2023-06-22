@@ -2,27 +2,28 @@
   <section>
     <h2>Endereço de envio</h2>
     <UsuarioForm>
-      <button @click.prevent="finalizarCompra" class="btn">Finalizar Compra</button>
+      <button @click.prevent="finalizarCompra" class="btn">
+        Finalizar Compra
+      </button>
     </UsuarioForm>
   </section>
 </template>
 
 <script>
+import { api } from "@/services.js";
+import { mapState } from "vuex";
 
-import { api } from '@/services.js'
-import { mapState } from 'vuex'
-
-import UsuarioForm from '@/components/UsuarioForm.vue'
+import UsuarioForm from "@/components/UsuarioForm.vue";
 
 export default {
-  name: 'FinalizarCompra',
-  props: ['produto'],
+  name: "FinalizarCompra",
+  props: ["produto"],
   components: {
     UsuarioForm,
   },
 
   computed: {
-    ...mapState(['usuario']),
+    ...mapState(["usuario"]),
     compra() {
       return {
         comprador_id: this.usuario.email,
@@ -35,43 +36,41 @@ export default {
           bairro: this.usuario.bairro,
           cidade: this.usuario.cidade,
           estado: this.usuario.estado,
-        }
-      }
-    }
+        },
+      };
+    },
   },
 
   methods: {
     criarTransacao() {
-      return api.post('/transacao', this.compra)
-      .then(() => {
-        this.$router.push({ name: 'compras' })
-      })
+      return api.post("/transacao", this.compra).then(() => {
+        this.$router.push({ name: "compras" });
+      });
     },
 
     async criarUsuario() {
       try {
-        await this.$store.dispatch('criarUsuario', this.$store.state.usuario)
-        await this.$store.dispatch('getUsuario', this.$store.state.usuario.email)
-        await this.criarTransacao()
-      } catch(error) {
-        console.log(error)
+        await this.$store.dispatch("criarUsuario", this.$store.state.usuario);
+        await this.$store.dispatch("logarUsuario", this.$store.state.usuario);
+        await this.$store.dispatch("getUsuario");
+        await this.criarTransacao();
+      } catch (error) {
+        console.log(error);
       }
     },
 
     finalizarCompra() {
-      if(this.$store.state.login) {
-        this.criarTransacao()
+      if (this.$store.state.login) {
+        this.criarTransacao();
+      } else {
+        this.criarUsuario();
       }
-      else {
-        this.criarUsuario()
-      }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 h2 {
   margin: 40px auto 20px auto;
 }
@@ -79,5 +78,4 @@ h2 {
 .btn {
   background: #e80;
 }
-
 </style>
