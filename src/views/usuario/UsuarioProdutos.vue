@@ -6,68 +6,76 @@
 
     <h2>Seus Produtos</h2>
     <transition-group v-if="usuario_produtos" name="list" tag="ul">
-      <li v-for="(produto, index) in usuario_produtos" :key="index">
+      <li v-for="produto in usuario_produtos" :key="produto.id">
         <ProdutoItem :produto="produto">
           <p>{{ produto.descricao }}</p>
-          <button @click="deletarProduto(produto.id)" class="deletar">Deletar</button>
+          <button @click="deletarProduto(produto.id)" class="deletar">
+            Deletar
+          </button>
         </ProdutoItem>
       </li>
     </transition-group>
 
+    <ErroNotificacao :erros="erros" />
   </section>
 </template>
 
 <script>
-
 import { mapState, mapActions } from "vuex";
-import { api } from '@/services.js'
+import { api } from "@/services.js";
 
-import ProdutoItem from '@/components/ProdutoItem.vue'
-import ProdutoAdicionar from '@/components/ProdutoAdicionar.vue'
+import ProdutoItem from "@/components/ProdutoItem.vue";
+import ProdutoAdicionar from "@/components/ProdutoAdicionar.vue";
 
 export default {
-  name: 'UsuarioProdutos',
+  name: "UsuarioProdutos",
   components: {
     ProdutoAdicionar,
-    ProdutoItem
+    ProdutoItem,
+  },
+
+  data() {
+    return {
+      erros: [],
+    };
   },
 
   computed: {
-    ...mapState(['login', 'usuario', 'usuario_produtos'])
+    ...mapState(["login", "usuario", "usuario_produtos"]),
   },
 
   methods: {
-    ...mapActions(['getUsuarioProdutos']),
+    ...mapActions(["getUsuarioProdutos"]),
     deletarProduto(id) {
-      const confirmar = window.confirm('Deseja remover este produto?')
+      const confirmar = window.confirm("Deseja remover este produto?");
       if (confirmar) {
-        api.delete(`/produto/${id}`)
-        .then(() => {
-          this.getUsuarioProdutos()
-        }).catch(error => {
-          console.log(error.response)
-        })
+        api
+          .delete(`/produto/${id}`)
+          .then(() => {
+            this.getUsuarioProdutos();
+          })
+          .catch((error) => {
+            this.erros.push(error.response.data.message);
+          });
       }
-    }
+    },
   },
 
   watch: {
     login() {
-      this.getUsuarioProdutos()
-    }
+      this.getUsuarioProdutos();
+    },
   },
 
   created() {
-    // this.$store.dispatch('getUsuarioProdutos')
     if (this.login) {
-      this.getUsuarioProdutos()
+      this.getUsuarioProdutos();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
 h2 {
   margin-bottom: 20px;
 }
@@ -87,12 +95,11 @@ h2 {
   position: absolute;
   top: 0;
   right: 0;
-  background: url('../../assets/remove.svg') no-repeat center center;
+  background: url("../../assets/remove.svg") no-repeat center center;
   width: 20px;
   height: 20px;
   text-indent: -140px;
   overflow: hidden;
   border: none;
 }
-
 </style>

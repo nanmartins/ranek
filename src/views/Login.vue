@@ -10,10 +10,16 @@
       <input v-model="login.senha" type="password" name="senha" id="senha" />
 
       <button @click.prevent="logar" class="btn">Logar</button>
+
+      <ErroNotificacao :erros="erros" />
     </form>
 
     <p class="perdeu">
-      <a href="/" target="_blank">Perdeu a senha? Clique aqui.</a>
+      <a
+        href="http://ranekapilocal.local/wp-login.php?action=lostpassword"
+        target="_blank"
+        >Perdeu a senha? Clique aqui.</a
+      >
     </p>
 
     <LoginCriar />
@@ -34,14 +40,21 @@ export default {
         email: "",
         senha: "",
       },
+      erros: [],
     };
   },
   methods: {
     logar() {
-      this.$store.dispatch("logarUsuario", this.login).then(() => {
-        this.$store.dispatch("getUsuario");
-        this.$router.push({ name: "usuario" });
-      });
+      this.erros = [];
+      this.$store
+        .dispatch("logarUsuario", this.login)
+        .then(() => {
+          this.$store.dispatch("getUsuario");
+          this.$router.push({ name: "usuario" });
+        })
+        .catch((erro) => {
+          this.erros.push(erro.response.data.message);
+        });
     },
   },
 };
@@ -68,8 +81,6 @@ form {
 .btn {
   width: 100%;
   max-width: 300px;
-  /* margin-left: auto;
-  margin-right: auto; */
   margin: 10px auto 0 auto;
 }
 

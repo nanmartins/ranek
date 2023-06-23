@@ -103,6 +103,7 @@ textarea {
   font-size: 1rem;
   font-family: "Rajdhani", sans-serif, monospace, Helvetica, Arial;
   margin-bottom: 15px;
+  width: 100%;
 }
 
 input:hover,

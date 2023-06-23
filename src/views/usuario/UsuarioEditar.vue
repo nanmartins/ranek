@@ -3,6 +3,8 @@
     <UsuarioForm>
       <button @click.prevent="atualizarUsuario" class="btn">Salvar</button>
     </UsuarioForm>
+
+    <ErroNotificacao :erros="erros" />
   </section>
 </template>
 
@@ -17,8 +19,15 @@ export default {
     UsuarioForm,
   },
 
+  data() {
+    return {
+      erros: [],
+    };
+  },
+
   methods: {
     async atualizarUsuario() {
+      this.erros = [];
       await api
         .put(`/usuario`, this.$store.state.usuario)
         .then(() => {
@@ -26,7 +35,7 @@ export default {
           this.$router.push({ name: "usuario" });
         })
         .catch((error) => {
-          console.log(error.response);
+          this.erros.push(error.response.data.message);
         });
     },
   },

@@ -3,19 +3,21 @@
     <nav class="sidenav">
       <ul>
         <li>
-          <router-link :to="{ name: 'usuario'}">Produtos</router-link>
+          <router-link :to="{ name: 'usuario' }">Produtos</router-link>
         </li>
 
         <li>
-          <router-link :to="{ name: 'compras'}">Compras</router-link>
+          <router-link :to="{ name: 'compras' }">Compras</router-link>
         </li>
 
         <li>
-          <router-link :to="{ name: 'vendas'}">Vendas</router-link>
+          <router-link :to="{ name: 'vendas' }">Vendas</router-link>
         </li>
 
         <li>
-          <router-link :to="{ name: 'usuario-editar' }">Editar Perfil</router-link>
+          <router-link :to="{ name: 'usuario-editar' }"
+            >Editar Perfil</router-link
+          >
         </li>
 
         <li>
@@ -33,18 +35,17 @@
 
 <script>
 export default {
-  name: 'Usuario',
+  name: "Usuario",
   methods: {
     deslogar() {
-      this.$store.dispatch('deslogarUsuario')
-      this.$router.push('/login')
-    }
-  }
-}
+      this.$store.dispatch("deslogarUsuario");
+      this.$router.push("/login");
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .usuario {
   display: grid;
   grid-template-columns: minmax(140px, 200px) 1fr;
@@ -71,7 +72,7 @@ export default {
 }
 
 .sidenav button {
-  font-family: 'Rajdhani', sans-serif, monospace, Helvetica, Arial;
+  font-family: "Rajdhani", sans-serif, monospace, Helvetica, Arial;
   border: none;
   width: 100%;
   font-size: 1rem;
@@ -79,13 +80,11 @@ export default {
   cursor: pointer;
 }
 
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .usuario {
     grid-template-columns: 1fr;
     margin: 0 auto;
     gap: 20px;
   }
 }
-
 </style>

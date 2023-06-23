@@ -35,6 +35,13 @@ export default {
   position: relative;
 }
 
+@media screen and (max-width: 600px) {
+  .produtos {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
 .info {
   align-self: end;
 }

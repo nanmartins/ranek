@@ -47,7 +47,7 @@ export default {
       const form = new FormData();
 
       const files = this.$refs.fotos.files;
-      console.log(files);
+      // console.log(files);
 
       for (let i = 0; i < files.length; i++) {
         form.append(files[i].name, files[i]);

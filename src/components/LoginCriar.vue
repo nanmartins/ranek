@@ -3,6 +3,8 @@
     <section>
       <h2>Crie sua conta</h2>
 
+      <ErroNotificacao :erros="erros" />
+
       <transition mode="out-in">
         <button v-if="!criar" @click="criar = true" class="btn">Criar</button>
 
@@ -27,6 +29,7 @@ export default {
   data() {
     return {
       criar: false,
+      erros: [],
     };
   },
 
@@ -38,7 +41,7 @@ export default {
         await this.$store.dispatch("getUsuario");
         this.$router.push({ name: "usuario" });
       } catch (error) {
-        console.log(error);
+        this.erros.push(error.response.data.message);
       }
     },
   },

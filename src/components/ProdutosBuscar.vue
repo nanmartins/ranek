@@ -1,8 +1,19 @@
 <template>
   <div>
     <form>
-      <input name="busca" id="busca" type="text" v-model="busca" placeholder="Buscar...">
-      <input type="submit" id="lupa" value="Buscar" @click.prevent="buscarProduto">
+      <input
+        name="busca"
+        id="busca"
+        type="text"
+        v-model="busca"
+        placeholder="Buscar..."
+      />
+      <input
+        type="submit"
+        id="lupa"
+        value="Buscar"
+        @click.prevent="buscarProduto"
+      />
     </form>
   </div>
 </template>
@@ -12,23 +23,23 @@ export default {
   name: "ProdutosBuscar",
   data() {
     return {
-      busca: ''
-    }
+      busca: "",
+    };
   },
   methods: {
     buscarProduto() {
-      this.$router.push({ query: { q: this.busca }})
-    }
-  }
-}
+      this.$router.push({ query: { q: this.busca } });
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 form {
   position: relative;
   max-width: 600px;
   margin: 30px auto 60px auto;
+  padding: 0 10px;
 }
 
 #busca {
@@ -48,11 +59,10 @@ form {
   right: 0;
   width: 60px;
   height: 57px;
-  background: url('../assets/search.svg') no-repeat center center;
+  background: url("../assets/search.svg") no-repeat center center;
   text-indent: -150px;
   border: none;
   cursor: pointer;
   box-shadow: none;
 }
-
 </style>
